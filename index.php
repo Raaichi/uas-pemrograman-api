@@ -333,11 +333,11 @@ try {
 
     http_response_code(500);
     render('error', [
-        'title' => 'Error',
-        'pageClass' => 'page-error',
+        'title'      => 'Error',
+        'pageClass'  => 'page-error',
         'currentUser' => null,
-        'message' => 'Aplikasi belum siap atau database lokal belum terhubung.',
-        'code' => 500,
-        'detail' => $exception->getMessage(),
+        'message'    => 'Terjadi kesalahan pada server.',
+        'code'       => 500,
+        'detail'     => null,
     ]);
 }

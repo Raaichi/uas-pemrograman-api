@@ -86,4 +86,4 @@
     </div>
 </section>
 
-<script src="/assets/client.js" defer></script>
+<script src="<?= e(site_url('assets/client.js')) ?>"></script>

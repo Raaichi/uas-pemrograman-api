@@ -38,9 +38,13 @@ function now(): string
 
 function site_url(string $path = ''): string
 {
-    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-    $base = rtrim($scheme . '://' . $host, '/');
+    $https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+          || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
+          || (($_SERVER['HTTP_X_FORWARDED_SSL'] ?? '') === 'on');
+
+    $scheme = $https ? 'https' : 'http';
+    $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $base   = rtrim($scheme . '://' . $host, '/');
 
     if ($path === '') {
         return $base;

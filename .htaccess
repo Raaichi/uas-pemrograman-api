@@ -1,5 +1,20 @@
+Options -Indexes
+
 RewriteEngine On
 
+# Paksa HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Blokir akses langsung ke file sensitif
+RewriteRule ^config\.php$      - [F,L]
+RewriteRule ^router\.php$      - [F,L]
+RewriteRule ^tmp-.*\.json$     - [F,L]
+RewriteRule ^src(/.*)?$        - [F,L]
+RewriteRule ^database(/.*)?$   - [F,L]
+RewriteRule ^postman(/.*)?$    - [F,L]
+
+# Sajikan file/folder yang benar-benar ada
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]
